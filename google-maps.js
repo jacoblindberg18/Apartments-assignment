@@ -10,7 +10,7 @@ getApartments = async () => {
 
         console.log("this is apartments", apartments);
         addEventListeners(apartments.apartments);
-        renderAllApartments(apartments.apartments);
+        renderApartments(apartments.apartments);
     } catch (err) {
         console.log("ERROR", err);
     }
@@ -31,14 +31,15 @@ function addEventListeners(apartments) {
             button.classList.add("active");
             if (button.innerText !== "All") {
                 let filtered = filterApartments(apartments, button.innerText);
-                renderFilteredApartments(filtered);
+                renderApartments(filtered);
             } else {
-                renderAllApartments(apartments);
+                renderApartments(apartments);
             }
         });
     });
 }
 
+//kanske en if-sats här inne istället för i eventlyssnaren?? KOLLA PÅ DET OCH FÖRENKLA!
 function filterApartments(allApartments, buttonText) {
     let filtered = allApartments.filter(apartment => {
         return apartment.city === buttonText;
@@ -46,26 +47,15 @@ function filterApartments(allApartments, buttonText) {
     return filtered;
 }
 
-function renderFilteredApartments(apartments) {
+function renderApartments(apartments) {
     apartmentArea.innerHTML = "";
     apartments.forEach(apartment => {
-        apartmentArea.innerHTML += `<a href="#" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-            <div>
-                <p class="mb-1">${apartment.description}</p>
-                <p class="mb-1">${apartment.address}</p>
-            </div>
-            <small>${apartment.price}</small>
-        </div>
-        <small>Bedrooms: ${apartment.bedrooms} / Neighborhood: ${apartment.neighborhood}</small>
-    </a>`;
+        renderContent(apartment);
     });
 }
 
-function renderAllApartments(apartments) {
-    apartmentArea.innerHTML = "";
-    apartments.forEach(apartment => {
-        apartmentArea.innerHTML += `<a href="#" class="list-group-item list-group-item-action">
+function renderContent(apartment){
+    apartmentArea.innerHTML += `<a target="_blank" href="http://maps.google.com?q=${apartment.address}" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <div>
                 <p class="mb-1">${apartment.description}</p>
@@ -75,5 +65,4 @@ function renderAllApartments(apartments) {
         </div>
         <small>Bedrooms: ${apartment.bedrooms} / Neighborhood: ${apartment.neighborhood}</small>
     </a>`;
-    });
 }

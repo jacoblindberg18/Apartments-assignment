@@ -1,3 +1,16 @@
+@keyframes animate {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+* {
+    font-family: 'Poppins', serif;
+}
+
 .header {
     height: 3rem;
     width: 100%;
@@ -18,9 +31,13 @@ a:hover {
     margin: 0;
 }
 
-
 li {
     margin-top: -1px;
+}
+
+li:hover {
+    background-color: #007bff;
+    color: white;
 }
 
 .list-group-item:last-child {
@@ -35,4 +52,10 @@ ul a:first-child > .list-group-item {
 ul a:last-child > .list-group-item {
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
+}
+
+p,
+a,
+small {
+    animation: animate 0.5s ease;
 }
